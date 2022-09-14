@@ -25,7 +25,7 @@ public:
     };
 
     T &operator*() const {
-        ASSERT(raw_ptr_);
+        // ASSERT(raw_ptr_);
         return *raw_ptr_;
     };
 
