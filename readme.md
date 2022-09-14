@@ -1,4 +1,5 @@
-This project is a simple weak ptr implemention learn from chromium/base/weak_ptr.h
+This project is a simple weak ptr implemention learn from chromium/base/weak_ptr.h,
+but not need any other component from chromium/base.
 
 Weak pointers are pointers to an object that do not affect its lifetime,
 and which may be invalidated (i.e. reset to nullptr) by the object, or its
