@@ -18,7 +18,7 @@ public:
     ~WeakPtr() = default;
 
     T *get() const noexcept {
-        if (!*ptr_live_) {
+        if (ptr_live_ == nullptr || *ptr_live_ == false) {
             return nullptr;
         }
         return raw_ptr_;
