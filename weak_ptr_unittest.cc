@@ -9,6 +9,10 @@ struct Base {
 };
 struct Derived : public Base {};
 
+WeakPtr<int> PassThru(WeakPtr<int> ptr) {
+    return ptr;
+}
+
 } // namespace
 
 TEST(WeakPtrFactoryTest, Basic) {
@@ -83,6 +87,19 @@ TEST(WeakPtrFactoryTest, Dereference) {
     EXPECT_EQ(&data, ptr.get());
     EXPECT_EQ(data.member, (*ptr).member);
     EXPECT_EQ(data.member, ptr->member);
+}
+
+TEST(WeakPtrFactoryTest, UpCast) {
+    Derived data;
+    WeakPtrFactory<Derived> factory(&data);
+    WeakPtr<Base> ptr = factory.GetWeakPtr();
+    ptr = factory.GetWeakPtr();
+    EXPECT_EQ(ptr.get(), &data);
+}
+
+TEST(WeakPtrTest, ConstructFromNullptr) {
+    WeakPtr<int> ptr = PassThru(nullptr);
+    EXPECT_EQ(nullptr, ptr.get());
 }
 
 } // namespace cik
