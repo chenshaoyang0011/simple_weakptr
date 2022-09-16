@@ -49,7 +49,7 @@ public:
     };
 
     explicit operator bool() const {
-        return *ref_;
+        return ref_ != nullptr && *ref_;
     };
 
 private:
