@@ -64,6 +64,24 @@ private:
     std::shared_ptr<bool> ref_;
 };
 
+// Allow callers to compare WeakPtrs against nullptr to test validity.
+template <class T>
+bool operator!=(const WeakPtr<T>& weak_ptr, std::nullptr_t) {
+  return !(weak_ptr == nullptr);
+}
+template <class T>
+bool operator!=(std::nullptr_t, const WeakPtr<T>& weak_ptr) {
+  return weak_ptr != nullptr;
+}
+template <class T>
+bool operator==(const WeakPtr<T>& weak_ptr, std::nullptr_t) {
+  return weak_ptr.get() == nullptr;
+}
+template <class T>
+bool operator==(std::nullptr_t, const WeakPtr<T>& weak_ptr) {
+  return weak_ptr == nullptr;
+}
+
 template <typename T>
 class WeakPtrFactory {
 public:

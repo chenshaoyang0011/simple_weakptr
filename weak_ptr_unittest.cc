@@ -103,34 +103,47 @@ TEST(WeakPtrTest, ConstructFromNullptr) {
 }
 
 TEST(WeakPtrFactoryTest, BooleanTesting) {
-  int data;
-  WeakPtrFactory<int> factory(&data);
+    int data;
+    WeakPtrFactory<int> factory(&data);
 
-  WeakPtr<int> ptr_to_an_instance = factory.GetWeakPtr();
-  EXPECT_TRUE(ptr_to_an_instance);
-  EXPECT_FALSE(!ptr_to_an_instance);
+    WeakPtr<int> ptr_to_an_instance = factory.GetWeakPtr();
+    EXPECT_TRUE(ptr_to_an_instance);
+    EXPECT_FALSE(!ptr_to_an_instance);
 
-  if (ptr_to_an_instance) {
-  } else {
-    ADD_FAILURE() << "Pointer to an instance should result in true.";
-  }
+    if (ptr_to_an_instance) {
+    } else {
+        ADD_FAILURE() << "Pointer to an instance should result in true.";
+    }
 
-  if (!ptr_to_an_instance) {  // check for operator!().
-    ADD_FAILURE() << "Pointer to an instance should result in !x being false.";
-  }
+    if (!ptr_to_an_instance) { // check for operator!().
+        ADD_FAILURE() << "Pointer to an instance should result in !x being false.";
+    }
 
-  WeakPtr<int> null_ptr;
-  EXPECT_FALSE(null_ptr);
-  EXPECT_TRUE(!null_ptr);
+    WeakPtr<int> null_ptr;
+    EXPECT_FALSE(null_ptr);
+    EXPECT_TRUE(!null_ptr);
 
-  if (null_ptr) {
-    ADD_FAILURE() << "Null pointer should result in false.";
-  }
+    if (null_ptr) {
+        ADD_FAILURE() << "Null pointer should result in false.";
+    }
 
-  if (!null_ptr) {  // check for operator!().
-  } else {
-    ADD_FAILURE() << "Null pointer should result in !x being true.";
-  }
+    if (!null_ptr) { // check for operator!().
+    } else {
+        ADD_FAILURE() << "Null pointer should result in !x being true.";
+    }
+}
+
+TEST(WeakPtrFactoryTest, ComparisonToNull) {
+    int data;
+    WeakPtrFactory<int> factory(&data);
+
+    WeakPtr<int> ptr_to_an_instance = factory.GetWeakPtr();
+    EXPECT_NE(nullptr, ptr_to_an_instance);
+    EXPECT_NE(ptr_to_an_instance, nullptr);
+
+    WeakPtr<int> null_ptr;
+    EXPECT_EQ(null_ptr, nullptr);
+    EXPECT_EQ(nullptr, null_ptr);
 }
 
 } // namespace cik
